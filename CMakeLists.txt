@@ -16,9 +16,13 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR/contrib})
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR/extras})
 
 add_executable(tests src/hello.c test/hello.test.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_include_directories(tests PRIVATE src)
+include(CTest)
+include(Catch)
+catch_discover_tests(tests)
 
 add_executable(hello src/main.c src/hello.c)
