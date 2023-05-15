@@ -24,5 +24,6 @@ target_include_directories(tests PRIVATE src)
 include(CTest)
 include(Catch)
 catch_discover_tests(tests)
+target_link_libraries(tests PUBLIC "-static")
 
 add_executable(hello src/main.c src/hello.c)

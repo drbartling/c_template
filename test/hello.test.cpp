@@ -4,10 +4,10 @@
 
 
 
-TEST_CASE( "Factorial of 0 is 1 (fail)", "[single-file]" ) {
+TEST_CASE( "My name is Bob", "[hello]" ) {
     char const name[] = "Bob";
     char const expected[] = "Hello, Bob!";
     char const * result = make_greeting(name);
 
-    REQUIRE( expected == result );
+    REQUIRE( 0 == strcmp(expected, result) );
 }
