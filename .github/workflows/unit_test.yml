@@ -19,6 +19,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+      - name: PWD
+        run: |
+          pwd
+          ls -lah
       - name: Build Targets
         run: |
           cmake -S . -B build
