@@ -13,9 +13,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { name: Linux, os: ubuntu-latest }
-          - { name: Windows, os: windows-latest }
-          - { name: Mac, os: macos-latest }
+          - { name: Linux, os: ubuntu-latest, cc: clang, cxx: clang++ }
+          - { name: Windows, os: windows-latest, cc: clang, cxx: clang++ }
+          - { name: Windows-gcc, os: windows-latest, cc: gcc, cxx: g++ }
+          - { name: Mac, os: macos-latest, cc: clang, cxx: clang++ }
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -24,6 +25,9 @@ jobs:
           pwd
           ls -lah
       - name: Build Targets
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
         run: |
           cmake -S . -B build
           cmake --build build
