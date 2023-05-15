@@ -29,8 +29,13 @@ jobs:
           CC: ${{ matrix.cc }}
           CXX: ${{ matrix.cxx }}
         run: |
+          echo $CC
+          echo $CXX
           cmake -S . -B build
           cmake --build build
       - name: Run Tests
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
         working-directory: build
         run: ctest --output-on-failure
