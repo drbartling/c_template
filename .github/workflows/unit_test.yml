@@ -29,6 +29,7 @@ jobs:
         CC: ${{ matrix.cc }}
         CXX: ${{ matrix.cxx }}
       run: |
+        which clang
         echo $CC
         echo $CXX
         cmake -S . -B build
