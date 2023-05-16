@@ -1,7 +1,15 @@
-```bash
-cmake -S . -B build && cmake --build build
+# C Template
+
+Template for a simply embedded application written in C and tested with Catch2
+
+## Getting Started
+
+
+
+```
+make test
 ```
 
-```bash
-cmake -S . -B build -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ && cmake --build build
+```
+winget install Ninja-build.Ninja
 ```

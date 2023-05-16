@@ -4,7 +4,7 @@ on: push
 
 jobs:
   unit-test:
-    name: ${{ matrix.name }}
+    name: ${{ matrix.os }}-${{ matrix.compiler }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -12,31 +12,29 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        os:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        compiler:
+        - gcc
+        - llvm
         include:
-        - {name: Linux, os: ubuntu-latest, cc: clang, cxx: clang++}
-        - {name: Windows, os: windows-latest, cc: clang, cxx: clang++}
-        - {name: Windows-gcc, os: windows-latest, cc: gcc, cxx: g++}
-        - {name: Mac, os: macos-latest, cc: clang, cxx: clang++}
+        - {os: windows-latest, compiler: msvc}
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
-    - name: PWD
+    - name: setup gcc
+      if: matrix.compiler == 'gcc'
       run: |
-        pwd
-        ls -lah
+        echo "CC=gcc" >> $GITHUB_ENV
+        echo "CXX=g++" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+    - name: setup clang
+      if: matrix.compiler == 'llvm'
+      run: |
+        echo "CC=clang" >> $GITHUB_ENV
+        echo "CXX=clang++" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
     - name: Build Targets
-      env:
-        CC: ${{ matrix.cc }}
-        CXX: ${{ matrix.cxx }}
-      run: |
-        which clang
-        echo $CC
-        echo $CXX
-        cmake -S . -B build
-        cmake --build build
-    - name: Run Tests
-      env:
-        CC: ${{ matrix.cc }}
-        CXX: ${{ matrix.cxx }}
-      working-directory: build
-      run: ctest --output-on-failure
+      run: make test
