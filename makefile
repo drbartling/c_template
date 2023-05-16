@@ -1,5 +1,7 @@
 .PHONY: test
-test:
-	cmake -S . -B build
+test: build
 	cmake --build build
 	cd build && ctest
+
+build:
+	cmake -S . -B build
