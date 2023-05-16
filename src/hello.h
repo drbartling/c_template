@@ -4,7 +4,7 @@
 extern "C" {
 #endif
 
-char const * make_greeting(char const *);
+char const *make_greeting(char const *);
 
 #ifdef __cplusplus
 }

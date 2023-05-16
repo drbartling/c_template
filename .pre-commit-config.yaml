@@ -33,12 +33,8 @@ repos:
   - id: catch-test
     name: c++ unit tests
     description: Run unit tests.
-    entry: |
-      cmake -S . -B build
-      cd build
-      cmake --build .
-      ctest
+    entry: cmake -S . -B build && cd build && cmake --build . && ctest
     language: system
-    types: [c]
+    types: [c, c++]
     pass_filenames: false
     stages: [commit]

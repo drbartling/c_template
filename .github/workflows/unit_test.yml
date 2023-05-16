@@ -13,29 +13,29 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { name: Linux, os: ubuntu-latest, cc: clang, cxx: clang++ }
-          - { name: Windows, os: windows-latest, cc: clang, cxx: clang++ }
-          - { name: Windows-gcc, os: windows-latest, cc: gcc, cxx: g++ }
-          - { name: Mac, os: macos-latest, cc: clang, cxx: clang++ }
+        - {name: Linux, os: ubuntu-latest, cc: clang, cxx: clang++}
+        - {name: Windows, os: windows-latest, cc: clang, cxx: clang++}
+        - {name: Windows-gcc, os: windows-latest, cc: gcc, cxx: g++}
+        - {name: Mac, os: macos-latest, cc: clang, cxx: clang++}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: PWD
-        run: |
-          pwd
-          ls -lah
-      - name: Build Targets
-        env:
-          CC: ${{ matrix.cc }}
-          CXX: ${{ matrix.cxx }}
-        run: |
-          echo $CC
-          echo $CXX
-          cmake -S . -B build
-          cmake --build build
-      - name: Run Tests
-        env:
-          CC: ${{ matrix.cc }}
-          CXX: ${{ matrix.cxx }}
-        working-directory: build
-        run: ctest --output-on-failure
+    - name: Check out repository
+      uses: actions/checkout@v3
+    - name: PWD
+      run: |
+        pwd
+        ls -lah
+    - name: Build Targets
+      env:
+        CC: ${{ matrix.cc }}
+        CXX: ${{ matrix.cxx }}
+      run: |
+        echo $CC
+        echo $CXX
+        cmake -S . -B build
+        cmake --build build
+    - name: Run Tests
+      env:
+        CC: ${{ matrix.cc }}
+        CXX: ${{ matrix.cxx }}
+      working-directory: build
+      run: ctest --output-on-failure
