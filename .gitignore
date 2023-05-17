@@ -59,3 +59,4 @@ build/
 # IDE Files
 .vscode/
 .idea/
+.obsidian/
