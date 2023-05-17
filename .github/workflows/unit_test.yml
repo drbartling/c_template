@@ -29,12 +29,12 @@ jobs:
       run: |
         echo "CC=gcc" >> $GITHUB_ENV
         echo "CXX=g++" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR='Unix Makefiles'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
     - name: setup clang
       if: matrix.compiler == 'llvm'
       run: |
         echo "CC=clang" >> $GITHUB_ENV
         echo "CXX=clang++" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR='Unix Makefiles'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
     - name: Build Targets
       run: make test
