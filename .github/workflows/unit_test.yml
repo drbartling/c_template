@@ -39,6 +39,6 @@ jobs:
         echo "CXX=clang++" >> $GITHUB_ENV
     - name: Set non-default generator
       if: matrix.generator != 'default'
-      run: echo "CMAKE_GENERATOR={{matrix.generator}}" >> $GITHUB_ENV
+      run: echo "CMAKE_GENERATOR=${{matrix.generator}}" >> $GITHUB_ENV
     - name: Build Targets
       run: make test
