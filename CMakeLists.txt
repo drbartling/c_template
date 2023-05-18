@@ -1,29 +1,24 @@
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_VERSION 1)
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-project(common_lib C CXX ASM)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_STANDARD 17)
+project(C_TEMPLATE_PROJECT)
 
-include(FetchContent)
+# ---- Dependencies ----
 
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.0.1 # or a later release
-)
+include(cmake/CPM.cmake)
 
-FetchContent_MakeAvailable(Catch2)
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR/contrib})
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR/extras})
+CPMAddPackage("gh:catchorg/Catch2@3.3.2")
 
-add_executable(tests src/hello.c test/hello.test.cpp test/main.test.cpp)
-target_link_libraries(tests PRIVATE Catch2::Catch2)
-target_include_directories(tests PRIVATE src)
-include(CTest)
-include(Catch)
-catch_discover_tests(tests)
-target_link_libraries(tests PUBLIC "-static")
+# ---- Create binary ----
 
-add_executable(hello src/main.c src/hello.c)
+add_executable(C_TEMPLATE_PROJECT src/main.c src/hello.c)
+
+# ---- Create test binary ----
+add_executable(C_TEMPLATE_PROJECT_test src/hello.c test/hello.test.cpp)
+target_link_libraries(C_TEMPLATE_PROJECT_test Catch2::Catch2WithMain)
+target_compile_features(C_TEMPLATE_PROJECT_test PRIVATE cxx_std_17)
+target_include_directories(C_TEMPLATE_PROJECT_test PRIVATE src)
+
+# ---- Enable testing ----
+
+enable_testing()
+add_test(C_TEMPLATE_PROJECT_test C_TEMPLATE_PROJECT_test)

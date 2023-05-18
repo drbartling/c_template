@@ -3,10 +3,10 @@
 .PHONY: test
 test: build
 	cmake --build build
-	cd build && ctest
+	cd build && ctest --rerun-failed --output-on-failure
 
 build:
-	cmake -S . -B build -G Ninja
+	cmake -S . -B build
 
 clean:
 	rm -rf build

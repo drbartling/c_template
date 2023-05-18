@@ -8,5 +8,7 @@ TEST_CASE("My name is Bob", "[hello]")
     char const  expected[] = "Hello, Bob!";
     char const *result     = make_greeting(name);
 
+    CAPTURE(expected);
+    CAPTURE(result);
     REQUIRE(0 == strcmp(expected, result));
 }
