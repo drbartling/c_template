@@ -6,7 +6,8 @@ test: build
 	cd build && ctest
 
 build:
-	cmake -S . -B build
+	cmake -S . -B build -G Ninja
 
 clean:
-	rm -rf *build*
+	rm -rf build
+	rm -rf *-build-*
