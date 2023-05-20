@@ -8,9 +8,13 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage("gh:catchorg/Catch2@3.3.2")
 
-# ---- Components ----
+# ---- Project libraries ----
 
 add_subdirectory(lib/hello)
+
+# ---- Project binaries ----
+
+add_subdirectory(lib/application)
 
 # ---- Enable testing ----
 

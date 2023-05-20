@@ -55,6 +55,7 @@ dkms.conf
 build/
 .cache/
 *-build-*/
+*_build/
 
 # IDE Files
 .vscode/

@@ -3,7 +3,7 @@
 .PHONY: test
 test: build
 	cmake --build build
-	cd build && ctest --rerun-failed --output-on-failure
+	cd build && ctest -C debug --output-on-failure
 
 build:
 	cmake -S . -B build
